@@ -1,14 +1,27 @@
-# Agent Configuration
-rag:
-  urls:
-    - url: "https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/pdf/support/index"
-      mime_type: "application/pdf"
-
+# JIRA Report Agent Configuration
 prompts:
   system_prompt: |
-    You are a helpful assistant. You have access to a number of tools.
-    Whenever a tool is called, be sure return the Response in a friendly and helpful tone.
+    You are a helpful JIRA reporting assistant. You have access to the jira-mcp-snowflake MCP server 
+    that provides JIRA data from Snowflake. Your primary task is to help create reports of JIRA issues.
+    
+    When working with JIRA data:
+    - Status "6" typically represents "Closed" issues
+    - Use appropriate date filters when searching for recent issues
+    - Format your output in a clear, readable table or list format
+    - Include relevant issue details like key, summary, priority, resolution date
+    - Be thorough and informative in your responses
   
   user_prompts:
-    - "List all the pods in the default namespace"
-    - "Send a message with the pods name to demo channel the on Slack" 
+    - |
+      Please create a report of closed JIRA issues from the last week for the following projects:
+      - CCITJEN
+      - CCITRP  
+      - QEHS
+      
+      For each project, please:
+      1. Search for issues with status "6" (closed) 
+      2. Filter for issues resolved in the last 7 days
+      3. Create a table or list showing: Issue Key, Summary, Priority, Resolution Date
+      4. If no issues are found for a project, please mention that explicitly
+      
+      Please present the results in a clear, organized format. 

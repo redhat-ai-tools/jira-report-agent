@@ -1,0 +1,26 @@
+# Gemini + CrewAI + Direct MCP Configuration
+# Copy this to .env and update with your actual values
+
+# Google Gemini API Configuration
+GEMINI_API_KEY=your-gemini-api-key-here
+
+# MCP Server Configuration (locally configured jira-mcp-snowflake)
+# Note: No MCP_SERVER_URL needed - uses direct function calls
+MCP_SERVER_NAME=jira-mcp-snowflake
+
+# Optional: Gemini Model Selection
+# GEMINI_MODEL=gemini-1.5-flash  # Default: faster, cheaper
+# GEMINI_MODEL=gemini-1.5-pro   # Alternative: more capable
+
+# Optional: LLM Provider Selection
+# LLM_PROVIDER=gemini           # Default: Google Gemini
+# LLM_PROVIDER=openai           # Alternative: OpenAI GPT
+
+# Optional: LLM Temperature (0.0 - 1.0)
+# LLM_TEMPERATURE=0.1           # Default: consistent responses
+
+# Optional: CrewAI Configuration
+# CREWAI_TELEMETRY_OPT_OUT=true
+
+# Optional: Logging Configuration
+# LOG_LEVEL=INFO 

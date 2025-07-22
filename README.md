@@ -1,69 +1,95 @@
-# Agent Template
+# JIRA Report Agent
 
-This repository provides a robust and flexible template for building AI agents. Whether you're developing intelligent assistants, automated workflows, or complex decision-making systems, this template offers a solid foundation to accelerate your development process. It's designed for easy setup, clear organization, and extensibility, allowing you to focus on the core logic of your agents.
+This agent provides automated JIRA issue reporting using the `jira-mcp-snowflake` MCP server. It creates reports of closed JIRA issues from specified projects and time periods, helping teams track issue resolution and project progress.
 
 ## Features
 
-- **Modular Structure**: Organize your agent's components logically for better maintainability.
-- **Easy Configuration**: Manage agent settings and parameters with a straightforward configuration system.
-- **Extensible Design**: Easily add new tools, behaviors, and integrations to your agents.
-- **Logging & Monitoring**: Basic setup for tracking agent activities and debugging.
-- **[Supports Multi-Step Reasoning Agents]**: Add specific use case examples here.
+- **JIRA Integration**: Connects to JIRA data via the `jira-mcp-snowflake` MCP server
+- **Automated Reporting**: Generates reports of closed issues from the last week
+- **Multi-Project Support**: Can query multiple JIRA projects in a single report
+- **Structured Output**: Presents results in clear, readable table format
+- **Configurable**: Easy to modify for different projects, time ranges, and criteria
 
 ## Getting Started
 
-Follow these steps to get your own agent project up and running using this template.
+Follow these steps to get your JIRA report agent up and running.
 
 ### Prerequisites
 
-Before you begin, ensure you have the following installed:
+Before you begin, ensure you have the following:
 
-- Python 3.9+ (or your specific required version)
+- Python 3.9+ 
 - pip (Python package installer)
-- [Any other prerequisites, e.g., Docker, specific OS libraries]
+- Access to a Llama Stack server
+- The `jira-mcp-snowflake` MCP server configured locally
+
+### Configuration
+
+The agent is configured via `config.yaml`. The current configuration is set to report on:
+- **Projects**: CCITJEN, CCITRP, QEHS
+- **Time Range**: Last 7 days
+- **Status**: Closed issues (status "6")
+
+### Environment Variables
+
+Set the following environment variables:
+
+```bash
+export REMOTE_BASE_URL="http://your-llama-stack-server:port"
+export REMOTE_JIRA_MCP_URL="http://your-jira-mcp-server:port" # Optional if running locally
+```
 
 ## Usage
 
-This section guides you on how to use the template to develop and run your agents.
+### Running the JIRA Report Agent
 
-### Running a Sample Agent
-
-To run the included sample agent:
+To run the agent:
 ```bash
-python main.py
+python src/agent.py
 ```
-(Adjust `main.py` if your primary entry point is different.)
 
-### Creating Your Own Agent
+The agent will:
+1. Connect to the Llama Stack server
+2. Register the JIRA MCP tool group
+3. Execute the configured prompts to generate JIRA reports
+4. Output detailed information about closed issues
 
-1. **Define your agent's logic**:
-   - Update the system prompts for your agent's specific logic and define its behavior, tools, and objectives.
+### Customizing Reports
 
-2. **Configure your agent**:
-   - Modify the configuration files (e.g., `deployment.yaml`) to define your agent's parameters, models, and tools.
+1. **Change Projects**: Modify the project list in `config.yaml` under `user_prompts`
+2. **Adjust Time Range**: Update the prompt to specify different time periods
+3. **Filter Criteria**: Modify the status codes or add additional filters (priority, component, etc.)
+4. **Output Format**: Customize the system prompt to change report formatting
 
-3. **Integrate tools**:
-   - Implement or integrate external tools that your agent can use to interact with the environment (e.g., web search, API calls, database access).
+### Example Output
+
+The agent generates reports showing:
+- Issue Key (e.g., CCITJEN-1234)
+- Issue Summary/Title
+- Priority Level
+- Resolution Date
+- Additional metadata as configured
 
 ## Contributing
 
-Contributions are welcome! If you'd like to improve this template, please follow these steps:
+Contributions are welcome! To improve this agent:
 
-1. Fork the repository.
+1. Fork the repository
 2. Create a new branch:
    ```bash
    git checkout -b feature/your-feature-name
    ```
-3. Make your changes.
-4. Commit your changes:
+3. Make your changes
+4. Test with your JIRA data
+5. Commit your changes:
    ```bash
-   git commit -m 'Add new feature'
+   git commit -m 'Add new reporting feature'
    ```
-5. Push to the branch:
+6. Push to the branch:
    ```bash
    git push origin feature/your-feature-name
    ```
-6. Open a Pull Request.
+7. Open a Pull Request
 
 ## License
 
