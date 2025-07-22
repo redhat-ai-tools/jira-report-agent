@@ -1,0 +1,14 @@
+# Agent Configuration
+rag:
+  urls:
+    - url: "https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/pdf/support/index"
+      mime_type: "application/pdf"
+
+prompts:
+  system_prompt: |
+    You are a helpful assistant. You have access to a number of tools.
+    Whenever a tool is called, be sure return the Response in a friendly and helpful tone.
+  
+  user_prompts:
+    - "List all the pods in the default namespace"
+    - "Send a message with the pods name to demo channel the on Slack" 
